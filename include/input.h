@@ -3,6 +3,6 @@
 
 #include <stdbool.h>
 
-void process_input(bool *is_running);
+void process_input(bool *is_running, unsigned char gfx[]);
 
 #endif

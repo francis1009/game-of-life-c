@@ -6,8 +6,7 @@
 
 #include <SDL3/SDL.h>
 
-#define WINDOW_WIDTH 1366
-#define WINDOW_HEIGHT 768
+#include "config.h"
 
 static SDL_Window *window = NULL;
 static SDL_Renderer *renderer = NULL;
@@ -69,7 +68,8 @@ void display_draw(unsigned char gfx[]) {
 			pixel_buffer[i] = 0xFFFFFFFF;
 		}
 	}
-	SDL_UpdateTexture(texture, NULL, pixel_buffer, 64 * sizeof(uint32_t));
+	SDL_UpdateTexture(texture, NULL, pixel_buffer,
+										WINDOW_WIDTH * sizeof(uint32_t));
 	SDL_RenderClear(renderer);
 	SDL_RenderTexture(renderer, texture, NULL, NULL);
 	SDL_RenderPresent(renderer);

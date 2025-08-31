@@ -6,12 +6,13 @@
 
 #include <SDL3/SDL.h>
 
+#include "config.h"
 #include "display.h"
 #include "input.h"
 
 const int TARGET_FPS = 60;
 const float FRAME_DURATION_MS = 1000.0f / TARGET_FPS;
-const int CYCLES_PER_FRAME = 8;
+const int CYCLES_PER_FRAME = 1000;
 
 int main(void) {
 	srand(time(NULL));
@@ -23,13 +24,14 @@ int main(void) {
 		return 1;
 	}
 
-	unsigned char gfx[1366 * 768];
+	unsigned char gfx[WINDOW_WIDTH * WINDOW_HEIGHT];
+	memset(gfx, 0, sizeof(gfx));
 
 	while (is_running) {
 		Uint64 frame_start_time = SDL_GetTicks();
 
-		process_input(&is_running);
 		for (int i = 0; i < CYCLES_PER_FRAME; i++) {
+			process_input(&is_running, gfx);
 		}
 
 		display_draw(gfx);

@@ -2,9 +2,19 @@
 
 #include <SDL3/SDL.h>
 
-void process_input(bool *is_running) {
-	SDL_Event event;
+#include "config.h"
 
+static bool is_mouse_down = false;
+
+static void draw_pixel_at(unsigned char gfx[], int x, int y) {
+	// Check if the coordinates are within the window bounds
+	if (x >= 0 && x < WINDOW_WIDTH && y >= 0 && y < WINDOW_HEIGHT) {
+		gfx[y * WINDOW_WIDTH + x] = 1;
+	}
+}
+
+void process_input(bool *is_running, unsigned char gfx[]) {
+	SDL_Event event;
 	while (SDL_PollEvent(&event)) {
 		switch (event.type) {
 		// Handle closing window
@@ -17,6 +27,28 @@ void process_input(bool *is_running) {
 			if (event.key.scancode == SDL_SCANCODE_ESCAPE) {
 				*is_running = false;
 				return;
+			}
+			break;
+
+		// Draw if mouse down
+		case SDL_EVENT_MOUSE_BUTTON_DOWN:
+			if (event.button.button == SDL_BUTTON_LEFT) {
+				is_mouse_down = true;
+				draw_pixel_at(gfx, event.button.x, event.button.y);
+			}
+			break;
+
+		// Prevent draw on mouse up
+		case SDL_EVENT_MOUSE_BUTTON_UP:
+			if (event.button.button == SDL_BUTTON_LEFT) {
+				is_mouse_down = false;
+			}
+			break;
+
+		// Continue draw if mouse down
+		case SDL_EVENT_MOUSE_MOTION:
+			if (is_mouse_down) {
+				draw_pixel_at(gfx, event.motion.x, event.motion.y);
 			}
 			break;
 		}
