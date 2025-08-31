@@ -3,8 +3,10 @@
 
 #include <stdbool.h>
 
+#include "game.h"
+
 bool display_init(void);
-void display_draw(unsigned char gfx[]);
+void display_draw(const Game *game);
 void display_destroy(void);
 
 #endif

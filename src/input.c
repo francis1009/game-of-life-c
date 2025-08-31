@@ -3,6 +3,7 @@
 #include <SDL3/SDL.h>
 
 #include "config.h"
+#include "game.h"
 
 static bool is_mouse_down = false;
 
@@ -13,7 +14,7 @@ static void draw_pixel_at(unsigned char gfx[], int x, int y) {
 	}
 }
 
-void process_input(bool *is_running, unsigned char gfx[]) {
+void input_process(const Game *game, bool *is_running) {
 	SDL_Event event;
 	while (SDL_PollEvent(&event)) {
 		switch (event.type) {
@@ -34,7 +35,7 @@ void process_input(bool *is_running, unsigned char gfx[]) {
 		case SDL_EVENT_MOUSE_BUTTON_DOWN:
 			if (event.button.button == SDL_BUTTON_LEFT) {
 				is_mouse_down = true;
-				draw_pixel_at(gfx, event.button.x, event.button.y);
+				draw_pixel_at(game->gfx, event.button.x, event.button.y);
 			}
 			break;
 
@@ -48,7 +49,7 @@ void process_input(bool *is_running, unsigned char gfx[]) {
 		// Continue draw if mouse down
 		case SDL_EVENT_MOUSE_MOTION:
 			if (is_mouse_down) {
-				draw_pixel_at(gfx, event.motion.x, event.motion.y);
+				draw_pixel_at(game->gfx, event.motion.x, event.motion.y);
 			}
 			break;
 		}

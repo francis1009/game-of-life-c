@@ -8,6 +8,7 @@
 
 #include "config.h"
 #include "display.h"
+#include "game.h"
 #include "input.h"
 
 const int TARGET_FPS = 60;
@@ -24,17 +25,17 @@ int main(void) {
 		return 1;
 	}
 
-	unsigned char gfx[WINDOW_WIDTH * WINDOW_HEIGHT];
-	memset(gfx, 0, sizeof(gfx));
+	Game game;
+	game_init(&game);
 
 	while (is_running) {
 		Uint64 frame_start_time = SDL_GetTicks();
 
 		for (int i = 0; i < CYCLES_PER_FRAME; i++) {
-			process_input(&is_running, gfx);
+			input_process(&game, &is_running);
 		}
 
-		display_draw(gfx);
+		display_draw(&game);
 
 		Uint64 frame_end_time = SDL_GetTicks();
 		float elapsed_ms = (float) (frame_end_time - frame_start_time);

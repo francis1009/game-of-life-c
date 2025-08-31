@@ -7,6 +7,7 @@
 #include <SDL3/SDL.h>
 
 #include "config.h"
+#include "game.h"
 
 static SDL_Window *window = NULL;
 static SDL_Renderer *renderer = NULL;
@@ -57,10 +58,10 @@ bool display_init(void) {
 	return true;
 }
 
-void display_draw(unsigned char gfx[]) {
+void display_draw(const Game *game) {
 	for (int i = 0; i < WINDOW_WIDTH * WINDOW_HEIGHT; ++i) {
 		// Monocolour
-		if (gfx[i]) {
+		if (game->gfx[i]) {
 			// Foreground: Black
 			pixel_buffer[i] = 0x00000000;
 		} else {

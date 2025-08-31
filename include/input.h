@@ -3,6 +3,8 @@
 
 #include <stdbool.h>
 
-void process_input(bool *is_running, unsigned char gfx[]);
+#include "game.h"
+
+void input_process(const Game *game, bool *is_running);
 
 #endif
