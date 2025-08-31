@@ -11,9 +11,8 @@
 #include "game.h"
 #include "input.h"
 
-const int TARGET_FPS = 60;
+const int TARGET_FPS = 500;
 const float FRAME_DURATION_MS = 1000.0f / TARGET_FPS;
-const int CYCLES_PER_FRAME = 1000;
 
 int main(void) {
 	srand(time(NULL));
@@ -30,12 +29,9 @@ int main(void) {
 
 	while (is_running) {
 		Uint64 frame_start_time = SDL_GetTicks();
-
-		for (int i = 0; i < CYCLES_PER_FRAME; i++) {
-			input_process(&game, &is_running);
-		}
-
+		input_process(&game, &is_running);
 		display_draw(&game);
+		game_next_frame(&game);
 
 		Uint64 frame_end_time = SDL_GetTicks();
 		float elapsed_ms = (float) (frame_end_time - frame_start_time);

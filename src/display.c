@@ -21,7 +21,8 @@ bool display_init(void) {
 		return false;
 	}
 
-	window = SDL_CreateWindow("Game Of Life", WINDOW_WIDTH, WINDOW_HEIGHT, 0);
+	window = SDL_CreateWindow("Game Of Life", WINDOW_WIDTH * WINDOW_SCALE,
+														WINDOW_HEIGHT * WINDOW_SCALE, 0);
 	if (window == NULL) {
 		fprintf(stderr, "Error creating window: %s\n", SDL_GetError());
 		SDL_Quit();

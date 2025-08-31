@@ -8,6 +8,6 @@ typedef struct {
 } Game;
 
 void game_init(Game *game);
-void game_next_frame(Game *game);
+void game_next_frame(Game *game);	
 
 #endif

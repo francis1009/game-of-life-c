@@ -35,7 +35,9 @@ void input_process(const Game *game, bool *is_running) {
 		case SDL_EVENT_MOUSE_BUTTON_DOWN:
 			if (event.button.button == SDL_BUTTON_LEFT) {
 				is_mouse_down = true;
-				draw_pixel_at(game->gfx, event.button.x, event.button.y);
+				int sim_x = event.button.x / WINDOW_SCALE;
+				int sim_y = event.button.y / WINDOW_SCALE;
+				draw_pixel_at(game->gfx, sim_x, sim_y);
 			}
 			break;
 
@@ -49,7 +51,9 @@ void input_process(const Game *game, bool *is_running) {
 		// Continue draw if mouse down
 		case SDL_EVENT_MOUSE_MOTION:
 			if (is_mouse_down) {
-				draw_pixel_at(game->gfx, event.motion.x, event.motion.y);
+				int sim_x = event.motion.x / WINDOW_SCALE;
+				int sim_y = event.motion.y / WINDOW_SCALE;
+				draw_pixel_at(game->gfx, sim_x, sim_y);
 			}
 			break;
 		}
