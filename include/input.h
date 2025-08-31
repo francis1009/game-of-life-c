@@ -5,6 +5,6 @@
 
 #include "game.h"
 
-void input_process(const Game *game, bool *is_running);
+void input_process(Game *game, bool *is_running, bool *is_paused);
 
 #endif

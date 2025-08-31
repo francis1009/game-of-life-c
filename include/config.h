@@ -1,8 +1,8 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#define WINDOW_WIDTH 800
-#define WINDOW_HEIGHT 450
-#define WINDOW_SCALE 2
+#define WINDOW_WIDTH 400
+#define WINDOW_HEIGHT 225
+#define WINDOW_SCALE 4
 
 #endif

@@ -26,12 +26,16 @@ int main(void) {
 
 	Game game;
 	game_init(&game);
+	bool is_paused = false;
 
 	while (is_running) {
 		Uint64 frame_start_time = SDL_GetTicks();
-		input_process(&game, &is_running);
+		input_process(&game, &is_running, &is_paused);
 		display_draw(&game);
-		game_next_frame(&game);
+
+		if (!is_paused) {
+			game_next_frame(&game);
+		}
 
 		Uint64 frame_end_time = SDL_GetTicks();
 		float elapsed_ms = (float) (frame_end_time - frame_start_time);
